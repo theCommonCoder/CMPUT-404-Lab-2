@@ -17,13 +17,17 @@ def handle_connection(conn, addr):
             if not data:
                 break
             all_data += data
+        print(all_data.decode("utf8", "ignore"))
         conn.sendall(all_data)
 
 
 def start_threaded_server():
     with socket.socket() as server_socket:
+        # level: socket optname: reuse_addr value: true
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        # claim the socket
         server_socket.bind((HOST, PORT))
+        # listen to incoming requests
         server_socket.listen(3)
 
         while True:

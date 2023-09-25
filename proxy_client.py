@@ -10,6 +10,7 @@ def get(host, port):
     with socket.socket() as s:
         s.connect((host, port))
         s.send(request.encode())
+        # prevents further writes
         s.shutdown(socket.SHUT_WR)
 
         all_data = b""
